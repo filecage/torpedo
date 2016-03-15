@@ -26,6 +26,7 @@
     "cryptiles": "^2.0.5",
     "cycle": "^1.0.3",
     "dashdash": "^1.13.0",
+    "debug": "^2.2.0",
     "delayed-stream": "^1.0.0",
     "ecc-jsbn": "^0.1.1",
     "escape-string-regexp": "^1.0.5",
