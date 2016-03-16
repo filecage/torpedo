@@ -55,16 +55,24 @@ class Grid {
         depth = depth || 1;
         var x = field.getX();
         var y = field.getY();
+        var neighbors = [];
 
-        return [
-            this.getFieldAtPosition(x, y - depth),
-            this.getFieldAtPosition(x + depth, y),
-            this.getFieldAtPosition(x, y + depth),
-            this.getFieldAtPosition(x - depth, y)
-        ].filter(neighbor => {
-            return neighbor !== null;
-        });
+        do {
+            neighbors = neighbors.concat([
+                this.getFieldAtPosition(x, y - depth),
+                this.getFieldAtPosition(x + depth, y),
+                this.getFieldAtPosition(x, y + depth),
+                this.getFieldAtPosition(x - depth, y)
+            ]).filter(neighbor => {
+                return neighbor !== null;
+            });
+
+            depth--;
+        } while (depth > 0);
+
+        return neighbors;
     }
+
 
     getFieldNeighborsByState (field, state, depth) {
         depth = depth || 1;
