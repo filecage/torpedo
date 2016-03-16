@@ -1,7 +1,7 @@
 'use strict';
 
-var Platform = require('./Platform');
-var Grid = require('../Game/Grid');
+var Platform = require('./../Platform');
+var Grid = require('../../Game/Grid');
 
 class Test extends Platform {
     constructor() {
