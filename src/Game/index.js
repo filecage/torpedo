@@ -25,9 +25,12 @@ class Game {
         this._platform
             .on('turn', this._turn.bind(this))
             .emit('ready');
+
+        debug('now playing the freaking game!');
     }
 
     _turn () {
+        debug('my turn');
         var target = null;
         var grid = this._platform.getEnemyGrid();
 
