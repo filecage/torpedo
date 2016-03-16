@@ -74,10 +74,9 @@ class Grid {
 
     /**
      * @param {Field} field
-     * @param {int} depth
      */
-    getFieldNeighborsDiagonal (field, depth) {
-        depth = depth || 1;
+    getFieldNeighborsDiagonal (field) {
+        var depth = 1;
         var x = field.getX();
         var y = field.getY();
 
