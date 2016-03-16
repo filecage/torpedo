@@ -44,6 +44,7 @@ class Battleship extends Platform {
             .then(this._wait.bind(this, 500))
             .then(this._updateGrid.bind(this))
             .then(this._drawGrid.bind(this))
+            .then(this._checkGameStatus.bind(this))
             .then(this._checkPlayableStatus.bind(this))
             .catch(error=> {
                 console.error(error);
@@ -72,6 +73,20 @@ class Battleship extends Platform {
         return new Promise((resolve) => {
             setTimeout(resolve.bind(), ms);
         });
+    }
+
+    _checkGameStatus () {
+        return new Promise((resolve, reject) => {
+            this._browser.getNotice()
+                .then((notice) => {
+                    if (!notice) {
+                        return resolve();
+                    }
+
+                    debug('game says: %s', notice.message);
+                    resolve();
+                });
+        })
     }
 
     _checkPlayableStatus() {

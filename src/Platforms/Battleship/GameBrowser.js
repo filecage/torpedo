@@ -65,6 +65,20 @@ class GameBrowser {
         });
     }
 
+    getNotice() {
+        return this._page.evaluate(function() {
+            var $notice = $('.notifications').find('.notification').filter(':not(.none)').first();
+            if (!$notice) {
+                return null;
+            }
+
+            return {
+                classes: $notice.attr('class'),
+                message: $notice.find('.notification-message').text()
+            };
+        });
+    }
+
     getStateByClassName(className) {
         if (className.match(/battlefield-cell__empty/)) {
             return Field.STATE.UNKNOWN;
