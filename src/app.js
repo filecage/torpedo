@@ -1,7 +1,7 @@
 var Game = require('./Game');
-var TestPlatform = require('./Platforms/Test');
+var Platform = require('./Platforms/Battleship');
 var RandomStrategy = require('./Strategies/Random');
 
-var game = new Game(new TestPlatform(), new RandomStrategy());
+var game = new Game(new Platform(), new RandomStrategy());
 
 game.play();
