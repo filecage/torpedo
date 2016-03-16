@@ -91,6 +91,12 @@ class Ship {
         // anything between these states means the ship is wounded
         return STATE_WOUNDED;
     }
+
+    setFieldStates (state) {
+        this._fields.forEach(field => {
+            field.setState(state);
+        });
+    }
 }
 
 Ship.STATE = {
