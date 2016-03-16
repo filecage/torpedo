@@ -1,24 +1,26 @@
 'use strict';
 
+var colors = require('colors/safe');
+
 var Field = require('../Game/Field');
 
 class Visualizer {
     visualizeField(field) {
         switch (field.getState()) {
             case Field.STATE.HIT:
-                return ' + ';
+                return colors.red.bold(' + ');
                 break;
 
             case Field.STATE.SUNK:
-                return ' X ';
+                return colors.red(' X ');
                 break;
 
             case Field.STATE.MISSED:
-                return ' o ';
+                return colors.cyan(' o ');
                 break;
 
             default:
-                return ' · ';
+                return colors.cyan(' · ');
                 break;
         }
     }
