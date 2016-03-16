@@ -88,3 +88,5 @@ class Ship {
         return STATE_HIT;
     }
 }
+
+module.exports = Ship;
