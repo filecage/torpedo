@@ -39,9 +39,9 @@ class Ship {
         });
 
         if (_.uniq(values.vertical).length === 1) {
-            return ORIENTATION_VERTICAL;
-        } else if (_.uniq(values.horizontal).length === 1) {
             return ORIENTATION_HORIZONTAL;
+        } else if (_.uniq(values.horizontal).length === 1) {
+            return ORIENTATION_VERTICAL;
         }
 
         throw new Error('invalid ship position, ship has multiple horizontal AND vertical values');
