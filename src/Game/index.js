@@ -24,7 +24,7 @@ class Game {
     play() {
         this._platform
             .on('turn', this._turn)
-            .trigger('ready');
+            .emit('ready');
     }
 
     _turn () {
