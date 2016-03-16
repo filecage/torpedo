@@ -6,9 +6,6 @@ var format = require('util').format;
 var Grid = require('./Grid');
 var Field = require('./Field');
 
-var TURN_MYSELF = 1;
-var TURN_ENEMY = 2;
-
 class Game {
     /**
      * @param {Platform} platform
