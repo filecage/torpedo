@@ -18,7 +18,7 @@
     "caseless": "^0.11.0",
     "chalk": "^1.1.1",
     "color-convert": "^1.0.0",
-    "colors": "^1.0.3",
+    "colors": "^1.1.2",
     "combined-stream": "^1.0.5",
     "commander": "^2.9.0",
     "concat-map": "^0.0.1",
