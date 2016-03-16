@@ -25,6 +25,22 @@ class Fleet {
 
         return state;
     }
+
+    getShipAtPosition(x, y) {
+        var targetShip = null;
+        this._ships.some(ship => {
+            return ship.getFields().some(field => {
+                if (field.getX() === x && field.getY() === y) {
+                    targetShip = ship;
+                    return true;
+                }
+
+                return false;
+            })
+        });
+
+        return targetShip;
+    }
 }
 
 module.exports = Fleet;
