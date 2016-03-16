@@ -23,7 +23,7 @@ class Game {
 
     play() {
         this._platform
-            .on('turn', this._turn)
+            .on('turn', this._turn.bind(this))
             .emit('ready');
     }
 
