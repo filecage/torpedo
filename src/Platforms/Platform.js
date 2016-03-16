@@ -18,3 +18,5 @@ class Platform {
         throw new Error('Platform must implement method shootAt')
     }
 }
+
+module.exports = Platform;
