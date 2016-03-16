@@ -82,12 +82,12 @@ class GameBrowser {
     getStateByClassName(className) {
         if (className.match(/battlefield-cell__empty/)) {
             return Field.STATE.UNKNOWN;
+        } else if (className.match(/battlefield-cell__done/)) {
+            return Field.STATE.SUNK;
         } else if (className.match(/battlefield-cell__hit/)) {
             return Field.STATE.HIT;
         } else if (className.match(/battlefield-cell__miss/)) {
             return Field.STATE.MISSED;
-        } else if (className.match(/battlefield-cell__done/)) {
-            return Field.STATE.SUNK;
         }
 
         console.log(className);
