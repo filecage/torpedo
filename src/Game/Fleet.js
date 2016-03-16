@@ -76,8 +76,18 @@ class Fleet {
     }
 
     getState() {
+        // filter all sunk ships
+        var ships = this._ships.filter(ship => {
+            return ship.getState() !== Ship.STATE.SUNK;
+        });
+
+        if (ships.length === 0) {
+            // no ships left, the fleet is sunk
+            return Ship.STATE.SUNK;
+        }
+
         var state = Ship.STATE.HEALTHY;
-        this._ships.forEach(ship => {
+        ships.forEach(ship => {
             state = Math.max(ship.getState(), state);
         });
 
