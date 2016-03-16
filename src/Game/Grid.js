@@ -1,5 +1,6 @@
 'use strict';
 
+var _ = require('lodash');
 var Field = require('./Field');
 
 class Grid {
@@ -122,6 +123,17 @@ class Grid {
         });
 
         return neighbors;
+    }
+
+    /**
+     * @param {int} x
+     * @param {int} y
+     * @param {int} width
+     * @param {int} height
+     * @returns {Array}
+     */
+    getAreaNeighborsWithDiagonal (x, y, width, height) {
+        return _.uniq(this.getAreaNeighbors(x, y, width, height).concat(this.getAreaNeighborsDiagonal(x, y, width, height)));
     }
 
     setFieldState (x, y, state) {
