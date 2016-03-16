@@ -89,4 +89,10 @@ class Ship {
     }
 }
 
+Ship.STATE = {
+    HEALTHY: STATE_HEALTHY,
+    WOUNDED: STATE_WOUNDED,
+    SUNK: STATE_SUNK
+};
+
 module.exports = Ship;
