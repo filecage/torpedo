@@ -47,6 +47,10 @@ class Ship {
         throw new Error('invalid ship position, ship has multiple horizontal AND vertical values');
     }
 
+    getFields () {
+        return this._fields;
+    }
+
     /**
      * @param {Field} field
      * @returns {Ship}
