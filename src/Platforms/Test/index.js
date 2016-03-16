@@ -9,6 +9,10 @@ class Test extends Platform {
         super();
         this._grid = new Grid(10, 10);
         this._enemyFleet = Fleet.createRandomFleetOnGrid(this._grid, [4, 3, 3, 2, 2]);
+
+        this.on('ready', () => {
+            setTimeout(this.emit.bind(this, 'turn'), 5000);
+        });
     }
 }
 
