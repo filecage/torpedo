@@ -22,6 +22,12 @@ class Game {
     }
 
     play() {
+        this._platform
+            .on('turn', this._turn)
+            .trigger('ready');
+    }
+
+    _turn () {
         var target = null;
         var grid = this._platform.getEnemyGrid();
 

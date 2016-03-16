@@ -1,9 +1,16 @@
 'use strict';
 
+var EventEmitter = require('events').EventEmitter;
+
 /**
  * @abstract
  */
-class Platform {
+class Platform extends EventEmitter {
+
+    constructor() {
+        super();
+    }
+
     /**
      * @return {Grid}
      */
