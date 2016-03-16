@@ -19,6 +19,8 @@ class Battleship extends Platform {
         this._grid = new Grid(10, 10);
         this._gridDrawer = new GridDrawer(this._grid);
         this._browser = new GameBrowser(argv.id);
+        this._lastNotice = null;
+
         var preparation = this._browser.prepare().then(() => {
             debug('browser seems to be ready');
         });
@@ -79,11 +81,17 @@ class Battleship extends Platform {
         return new Promise((resolve, reject) => {
             this._browser.getNotice()
                 .then((notice) => {
-                    if (!notice) {
+                    if (!notice || notice.message == this._lastNotice) {
                         return resolve();
                     }
 
                     debug('game says: %s', notice.message);
+                    if (notice.classes.match(/game-over-win/)) {
+                        debug('we won that game, nice!');
+                        process.exit(0);
+                    }
+
+                    this._lastNotice = notice.message;
                     resolve();
                 });
         })
@@ -98,7 +106,9 @@ class Battleship extends Platform {
                     console.log(error);
                 }
 
-                setTimeout(this._checkPlayableStatus.bind(this), 1000);
+                this._checkGameStatus().then(() => {
+                    setTimeout(this._checkPlayableStatus.bind(this), 1000);
+                });
             })
             .catch((error) => {
                 console.error(error);
