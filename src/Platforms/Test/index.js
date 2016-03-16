@@ -16,8 +16,8 @@ class Test extends Platform {
         debug('done, waiting for Game to emit ready');
 
         this.on('ready', () => {
-            debug('ready, starting in 5s');
-            setTimeout(this.emit.bind(this, 'turn'), 5000);
+            debug('ready, starting in 3s');
+            setTimeout(this.emit.bind(this, 'turn'), 3000);
         });
     }
 }
