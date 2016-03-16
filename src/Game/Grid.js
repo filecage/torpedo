@@ -147,7 +147,6 @@ class Grid {
     _walkArea(x, y, width, height, callback) {
         for(var i = 0; i < height; i++) {
             for (var j = 0; j < width; j++) {
-                callback.call(this, x + j, y + i);
                 if (this._grid[y + i] && this._grid[y + i][x + j]) {
                     callback.call(this, x + j, y + i);
                 }
