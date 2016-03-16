@@ -72,12 +72,84 @@ class Grid {
         });
     }
 
+    /**
+     * @param {Field} field
+     * @param {int} depth
+     */
+    getFieldNeighborsDiagonal (field, depth) {
+        depth = depth || 1;
+        var x = field.getX();
+        var y = field.getY();
+
+        return [
+            this.getFieldAtPosition(x - depth, y - depth),
+            this.getFieldAtPosition(x + depth, y - depth),
+            this.getFieldAtPosition(x - depth, y + depth),
+            this.getFieldAtPosition(x + depth, y + depth)
+        ].filter(neighbor => {
+            return neighbor !== null;
+        });
+    }
+
+    /**
+     * @param {int} x
+     * @param {int} y
+     * @param {int} width
+     * @param {int} height
+     * @returns {Array}
+     */
+    getAreaNeighbors (x, y, width, height) {
+        var neighbors = [];
+
+        this._walkArea(x, y, width, height, (x, y) => {
+            neighbors = neighbors.concat(this.getFieldNeighbors(this.getFieldAtPosition(x, y)));
+        });
+
+        return neighbors;
+    }
+
+    /**
+     * @param {int} x
+     * @param {int} y
+     * @param {int} width
+     * @param {int} height
+     * @returns {Array}
+     */
+    getAreaNeighborsDiagonal (x, y, width, height) {
+        var neighbors =  [];
+
+        this._walkArea(x, y, width, height, (x, y) => {
+            neighbors = neighbors.concat(this.getFieldNeighborsDiagonal(this.getFieldAtPosition(x, y)));
+        });
+
+        return neighbors;
+    }
+
     setFieldState (x, y, state) {
         if (!this._grid[y] || typeof this._grid[y][x] === 'undefined') {
             throw new Error('Unknown field');
         }
 
         this._grid[y][x].setState(state);
+
+        return this;
+    }
+
+    /**
+     * @param {int} x
+     * @param {int} y
+     * @param {int} width
+     * @param {int} height
+     * @param {function} callback
+     * @returns {Grid}
+     * @private
+     */
+    _walkArea(x, y, width, height, callback) {
+        for(var i = 0; i < height; i++) {
+            for (var j = 0; j < width; j++) {
+                callback.call(this, x + j, y + i);
+            }
+        }
 
         return this;
     }
