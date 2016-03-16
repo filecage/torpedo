@@ -10,15 +10,32 @@ var TURN_MYSELF = 1;
 var TURN_ENEMY = 2;
 
 class Game {
-    constructor(ownGrid, enemyGrid) {
-        this._ownGrid = ownGrid;
-        this._enemyGrid = enemyGrid;
+    /**
+     * @param {Platform} platform
+     * @param {StrategyInterface} strategy
+     */
+    constructor(platform, strategy) {
+        this._platform = platform;
+        this._strategy = strategy;
 
         debug('new game created');
     }
 
     play() {
+        var target = null;
+        var grid = this._platform.getEnemyGrid();
+        var finishingFields = this._findFinishingFields(grid);
+        if (finishingFields.length) {
+            target = finishingFields.shift();
+        } else {
+            target = this._strategy.getTargetField(grid);
+        }
 
+        if (target) {
+            this._platform.shootAt(target);
+        }
+
+        debug('no target found, is the game over?');
     }
 
     _findFinishingFields (grid) {
