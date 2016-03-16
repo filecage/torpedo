@@ -47,6 +47,24 @@ class GameBrowser {
         }, x, y);
     }
 
+    getFields() {
+        return this._page.evaluate(function () {
+            var fields = [];
+            $('.battlefield__rival').find('.battlefield-cell').each(function (idx, field) {
+                var $field = $(field);
+                var $cell = $field.find('.battlefield-cell-content');
+
+                fields.push({
+                    x: $cell.data('x'),
+                    y: $cell.data('y'),
+                    classes: $field.attr('class')
+                });
+            });
+
+            return fields;
+        });
+    }
+
     getStateByClassName(className) {
         if (className.match(/battlefield-cell__empty/)) {
             return Field.STATE.UNKNOWN;

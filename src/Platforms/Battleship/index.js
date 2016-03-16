@@ -3,6 +3,7 @@
 var debug = require('debug')('torpedo:platforms:battleship');
 var argv = require('minimist')(process.argv.slice(2));
 
+var GridDrawer = require('../../Helper/GridDrawer');
 var Grid = require('../../Game/Grid');
 var Platform = require('../Platform');
 var GameBrowser = require('./GameBrowser');
@@ -16,6 +17,7 @@ class Battleship extends Platform {
 
         super();
         this._grid = new Grid(10, 10);
+        this._gridDrawer = new GridDrawer(this._grid);
         this._browser = new GameBrowser(argv.id);
         var preparation = this._browser.prepare().then(() => {
             debug('browser seems to be ready');
@@ -41,6 +43,7 @@ class Battleship extends Platform {
         this._browser.shootField(field.getX(), field.getY())
             .then(this._wait.bind(this, 500))
             .then(this._updateGrid.bind(this))
+            .then(this._drawGrid.bind(this))
             .then(this._checkPlayableStatus.bind(this))
             .catch(error=> {
                 console.error(error);
@@ -49,7 +52,20 @@ class Battleship extends Platform {
     }
 
     _updateGrid () {
-        throw new Error('not yet implemented');
+        return new Promise((resolve) => {
+            this._browser.getFields()
+                .then(fields => {
+                    fields.forEach(field => {
+                        this._grid.setFieldState(field.x, field.y, this._browser.getStateByClassName(field.classes));
+                    });
+
+                    resolve();
+                });
+        });
+    }
+
+    _drawGrid () {
+        this._gridDrawer.drawToConsole();
     }
 
     _wait(ms) {
