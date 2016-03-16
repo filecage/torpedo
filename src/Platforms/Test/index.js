@@ -4,6 +4,8 @@ var debug = require('debug')('torpedo:platform:test');
 
 var Fleet = require('../../Game/Fleet');
 var Platform = require('./../Platform');
+var Field = require('../../Game/Field');
+var Ship = require('../../Game/Ship');
 var Grid = require('../../Game/Grid');
 
 class Test extends Platform {
@@ -23,6 +25,32 @@ class Test extends Platform {
 
     getEnemyGrid () {
         return this._grid;
+    }
+
+    shootAt(field) {
+        var x = field.getX();
+        var y = field.getY();
+
+        var ship = this._enemyFleet.getShipAtPosition(x, y);
+        if (ship) {
+            debug('thats a hit!');
+            field.setState(Field.STATE.HIT);
+
+            if (ship.getState() === Ship.STATE.SUNK) {
+                debug('the ship is sinking, blub blub');
+                ship.setFieldStates(Field.STATE.SUNK);
+            }
+        } else {
+            field.setState(Field.STATE.MISSED);
+        }
+
+        if (this._enemyFleet.getState() === Ship.STATE.SUNK) {
+            debug('enemy fleet sunk! congratulations.');
+            return;
+        }
+
+        debug('waiting 1s for next shot');
+        setTimeout(this.emit.bind(this, 'turn'), 1000);
     }
 }
 
