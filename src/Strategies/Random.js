@@ -13,3 +13,5 @@ class Random extends StrategyInterface {
         return _.shuffle(grid.getFieldsByState(Field.STATE.UNKNOWN)).pop();
     }
 }
+
+module.exports = Random;
