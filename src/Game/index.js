@@ -24,22 +24,26 @@ class Game {
     play() {
         var target = null;
         var grid = this._platform.getEnemyGrid();
+
+        debug('finding fields to frag an already hit ship..');
         var finishingFields = this._findFinishingFields(grid);
         if (finishingFields.length) {
+            debug('found %d finishing fields', finishingFields.length);
             target = finishingFields.shift();
         } else {
+            debug('no finishing fields found, getting target by strategy');
             target = this._strategy.getTargetField(grid);
         }
 
         if (target) {
+            debug('shooting at %d/%d', target.getX(), target.getY());
             this._platform.shootAt(target);
+        } else {
+            debug('no target found, is the game over?');
         }
-
-        debug('no target found, is the game over?');
     }
 
     _findFinishingFields (grid) {
-        debug('finding fields to frag an already hit ship..');
         var finishingFields = [];
         var hit = grid.getFieldsByState(Field.STATE.HIT);
         hit.forEach(field => {
@@ -54,8 +58,6 @@ class Game {
         finishingFields.sort((a, b) => {
             return grid.getFieldNeighborsByState(b, Field.STATE.HIT, 2).length - grid.getFieldNeighborsByState(a, Field.STATE.HIT, 2).length;
         });
-
-        debug(finishingFields.length > 0 ? format('found %d finishing fields', finishingFields.length) : 'no fields finishable');
 
         return finishingFields;
     }
