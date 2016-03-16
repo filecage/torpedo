@@ -5,7 +5,7 @@ var _ = require('lodash');
 var Field = require('./Field');
 
 var STATE_HEALTHY = 0;
-var STATE_HIT = 1;
+var STATE_WOUNDED = 1;
 var STATE_SUNK = 2;
 
 var ORIENTATION_UNKNOWN = 'unknown';
@@ -84,8 +84,8 @@ class Ship {
             return STATE_HEALTHY;
         }
 
-        // anything between these states means the ship is hit
-        return STATE_HIT;
+        // anything between these states means the ship is wounded
+        return STATE_WOUNDED;
     }
 }
 
