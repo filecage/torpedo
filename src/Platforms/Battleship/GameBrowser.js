@@ -39,6 +39,12 @@ class GameBrowser {
         });
     }
 
+    shootField(x, y) {
+        return this._page.evaluate(function(x, y){
+            $('.battlefield__rival').find('[data-x="' + x + '"][data-y="' + y + '"]').click();
+        }, x, y);
+    }
+
     _preparePhantom () {
         return phantom.create();
     }
