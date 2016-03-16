@@ -144,6 +144,22 @@ class Grid {
         return _.uniq(this.getAreaNeighbors(x, y, width, height).concat(this.getAreaNeighborsDiagonal(x, y, width, height)));
     }
 
+    /**
+     * @param {int} x
+     * @param {int} y
+     * @param {int} width
+     * @param {int} height
+     * @returns {Array}
+     */
+    getAreaFields (x, y, width, height) {
+        var fields = [];
+        this._walkArea(x, y, width, height, (x, y) => {
+            fields.push(this.getFieldAtPosition(x, y));
+        });
+
+        return fields;
+    }
+
     setFieldState (x, y, state) {
         if (!this._grid[y] || typeof this._grid[y][x] === 'undefined') {
             throw new Error('Unknown field');
