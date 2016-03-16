@@ -20,6 +20,10 @@ class Test extends Platform {
             setTimeout(this.emit.bind(this, 'turn'), 3000);
         });
     }
+
+    getEnemyGrid () {
+        return this._grid;
+    }
 }
 
 module.exports = Test;
