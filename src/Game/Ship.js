@@ -18,6 +18,10 @@ class Ship {
         this._fields = fields;
     }
 
+    getLength () {
+        return this._fields.length;
+    }
+
     getOrientation () {
         if (this._fields.length <= 1) {
             // we do not know anything about the orientation if there is only 1 or less known fields
