@@ -7,6 +7,11 @@ var GameBrowser = require('./GameBrowser');
 
 class Battleship extends Platform {
     constructor() {
+        if (!argv.id) {
+            debug('ERROR: no battleship-game.org id given (use with --id=<id>)');
+            process.exit(1);
+        }
+
         super();
         this._browser = new GameBrowser(argv.id);
         var preparation = this._browser.prepare().then(() => {
