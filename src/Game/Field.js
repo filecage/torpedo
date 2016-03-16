@@ -6,6 +6,13 @@ var STATE_HIT = 2;
 var STATE_SUNK = 3;
 
 class Field {
+
+    static filterByState(fields, state) {
+        return fields.filter(field => {
+            return field.getState() === state;
+        });
+    }
+
     constructor(x, y) {
         this._x = x;
         this._y = y;
