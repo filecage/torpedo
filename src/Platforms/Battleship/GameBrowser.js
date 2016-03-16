@@ -3,6 +3,8 @@
 var phantom = require('phantom');
 var debug = require('debug')('torpedo:platforms:battleship:browser');
 
+var Field = require('../../Game/Field');
+
 class GameBrowser {
     constructor(id) {
         this._id = id;
@@ -43,6 +45,21 @@ class GameBrowser {
         return this._page.evaluate(function(x, y){
             $('.battlefield__rival').find('[data-x="' + x + '"][data-y="' + y + '"]').click();
         }, x, y);
+    }
+
+    getStateByClassName(className) {
+        if (className.match(/battlefield-cell__empty/)) {
+            return Field.STATE.UNKNOWN;
+        } else if (className.match(/battlefield-cell__hit/)) {
+            return Field.STATE.HIT;
+        } else if (className.match(/battlefield-cell__miss/)) {
+            return Field.STATE.MISSED;
+        } else if (className.match(/battlefield-cell__done/)) {
+            return Field.STATE.SUNK;
+        }
+
+        console.log(className);
+        throw new Error('Unknown field state');
     }
 
     _preparePhantom () {
