@@ -79,6 +79,12 @@ class GameBrowser {
         });
     }
 
+    randomizeFleet() {
+        return this._page.evaluate(function(){
+            $('.placeships-variant__randomly').click();
+        });
+    }
+
     getStateByClassName(className) {
         if (className.match(/battlefield-cell__empty/)) {
             return Field.STATE.UNKNOWN;

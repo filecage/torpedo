@@ -21,9 +21,11 @@ class Battleship extends Platform {
         this._browser = new GameBrowser(argv.id);
         this._lastNotice = null;
 
-        var preparation = this._browser.prepare().then(() => {
-            debug('browser seems to be ready');
-        });
+        var preparation = this._browser.prepare()
+            .then(this._browser.randomizeFleet.bind(this._browser))
+            .then(() => {
+                debug('browser seems to be ready');
+            });
 
         this.on('ready', () => {
             preparation.then(() => {
