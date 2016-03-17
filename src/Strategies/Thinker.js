@@ -66,8 +66,15 @@ class Thinker extends StrategyInterface {
             });
         });
 
-        return [...weighting.entries()].sort((a, b) => a[1] > b[1] ? 1 : a[1] < b[1] ? -1 : 0)
-            .pop()[0];
+        var sortedWeighting = [...weighting.entries()].sort((a, b) => a[1] > b[1] ? 1 : a[1] < b[1] ? -1 : 0);
+        if (sortedWeighting.length) {
+            var target = sortedWeighting.pop();
+            debug('found a field with %d possible positions', target[1]);
+
+            return target[0];
+        }
+
+        return this._random.getTargetField(grid);
     }
 }
 
