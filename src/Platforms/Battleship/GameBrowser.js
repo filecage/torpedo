@@ -117,8 +117,8 @@ class GameBrowser {
 
     _openGame(page) {
         var url = 'http://de.battleship-game.org';
-        if (this.id) {
-            url += '/id' + this.id;
+        if (this._id) {
+            url += '/id' + this._id;
         }
 
         debug('opening game at %s', url);
