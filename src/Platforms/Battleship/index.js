@@ -10,15 +10,19 @@ var GameBrowser = require('./GameBrowser');
 
 class Battleship extends Platform {
     constructor() {
-        if (!argv.id) {
-            debug('ERROR: no battleship-game.org id given (use with --id=<id>)');
+        super();
+        
+        if (argv.random) {
+            this._browser = GameBrowser.random();
+        } else if (argv.id) {
+            this._browser = new GameBrowser(argv.id);
+        } else {
+            debug('ERROR: no battleship-game.org id given (use with --id=<id> or --random)');
             process.exit(1);
         }
 
-        super();
         this._grid = new Grid(10, 10);
         this._gridDrawer = new GridDrawer(this._grid);
-        this._browser = new GameBrowser(argv.id);
         this._lastNotice = null;
 
         var preparation = this._browser.prepare()

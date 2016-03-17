@@ -6,6 +6,11 @@ var debug = require('debug')('torpedo:platforms:battleship:browser');
 var Field = require('../../Game/Field');
 
 class GameBrowser {
+
+    static random() {
+        return new GameBrowser();
+    }
+
     constructor(id) {
         this._id = id;
         this._phantom = null;
@@ -111,11 +116,17 @@ class GameBrowser {
     }
 
     _openGame(page) {
-        debug('opening game at http://de.battleship-game.org/id%d', this._id);
+        var url = 'http://de.battleship-game.org';
+        if (this.id) {
+            url += '/id' + this.id;
+        }
+
+        debug('opening game at %s', url);
         this._page = page;
 
-        return page.open('http://de.battleship-game.org/id' + this._id);
+        return page.open(url);
     }
+
 }
 
 module.exports = GameBrowser;
