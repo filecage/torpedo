@@ -58,3 +58,5 @@ class Hunter extends StrategyInterface {
         }).length === 0;
     }
 }
+
+module.exports = Hunter;
