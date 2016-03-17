@@ -53,6 +53,7 @@ class Test extends Platform {
 
         if (this._enemyFleet.getState() === Ship.STATE.SUNK) {
             debug('enemy fleet sunk! congratulations.');
+            this.emit('win');
             return;
         }
 

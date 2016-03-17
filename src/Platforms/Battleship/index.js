@@ -87,8 +87,8 @@ class Battleship extends Platform {
 
                     debug('game says: %s', notice.message);
                     if (notice.classes.match(/game-over-win/)) {
+                        this.emit('win');
                         debug('we won that game, nice!');
-                        process.exit(0);
                     }
 
                     this._lastNotice = notice.message;

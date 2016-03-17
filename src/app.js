@@ -1,7 +1,21 @@
+var debug = require('debug')('torpedo');
 var Game = require('./Game');
-var Platform = require('./Platforms/Battleship');
-var RandomStrategy = require('./Strategies/Random');
+var Platform = require('./Platforms/Test');
+var Strategy = require('./Strategies/Random');
 
-var game = new Game(new Platform(), new RandomStrategy());
+var platform = new Platform();
+
+var game = new Game(platform, new Strategy());
+
+(() => {
+    var rounds = 0;
+    platform
+    .on('turn', () => {
+        rounds++;
+    }).on('win', () => {
+        debug('game won after %d rounds', rounds);
+        process.exit(0);
+    });
+})();
 
 game.play();
