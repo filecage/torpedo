@@ -1,7 +1,10 @@
 var debug = require('debug')('torpedo');
+var format = require('util').format;
+var argv = require('minimist')(process.argv.slice(2));
+
+var Platform = require(format('./Platforms/%s', argv.platform || 'Test'));
+var Strategy = require(format('./Strategies/%s', argv.strategy || 'Random'));
 var Game = require('./Game');
-var Platform = require('./Platforms/Test');
-var Strategy = require('./Strategies/Random');
 
 var platform = new Platform();
 
