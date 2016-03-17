@@ -1,5 +1,7 @@
 'use strict';
 
+var debug = require('debug')('torpedo:strategies:hunter');
+
 var StrategyInterface = require('./StrategyInterface');
 var Field = require('../Game/Field');
 var RandomStrategy = require('./Random');
@@ -17,10 +19,9 @@ class Hunter extends StrategyInterface {
         if (finishingFields.length) {
             debug('found %d finishing fields', finishingFields.length);
             return finishingFields.shift();
-        } else {
-            debug('no finishing fields found, getting target by strategy');
-            return this._randomStrategy.getTargetField(grid);
         }
+
+        return this._randomStrategy.getTargetField(grid);
     }
 
     /**
