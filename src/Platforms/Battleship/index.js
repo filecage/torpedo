@@ -11,7 +11,7 @@ var GameBrowser = require('./GameBrowser');
 class Battleship extends Platform {
     constructor() {
         super();
-        
+
         if (argv.random) {
             this._browser = GameBrowser.random();
         } else if (argv.id) {
@@ -95,6 +95,9 @@ class Battleship extends Platform {
                     if (notice.classes.match(/game-over-win/)) {
                         this.emit('win');
                         debug('we won that game, nice!');
+                    } else if (notice.classes.match(/game-over-lose/)) {
+                        this.emit('lose');
+                        debug('we lost :(');
                     }
 
                     this._lastNotice = notice.message;

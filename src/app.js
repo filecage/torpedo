@@ -13,12 +13,16 @@ var game = new Game(platform, new Strategy());
 (() => {
     var rounds = 0;
     platform
-    .on('turn', () => {
-        rounds++;
-    }).on('win', () => {
-        debug('game won after %d rounds', rounds);
-        process.exit(0);
-    });
+        .on('turn', () => {
+            rounds++;
+        })
+        .on('win', () => {
+            debug('game won after %d rounds', rounds);
+            process.exit(0);
+        })
+        .on('lose', () => {
+            debug('game lost after %d rounds', rounds);
+        });
 })();
 
 game.play();
