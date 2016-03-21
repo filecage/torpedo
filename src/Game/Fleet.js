@@ -43,7 +43,7 @@ class Fleet {
 
             // verify that there is no neighbor ship
             possibleAreas = possibleAreas.filter(area => {
-                return !grid.getAreaNeighborsWithDiagonal(area.x, area.y, area.width, area.height).some(neighbor => {
+                return !fleet.getShipAtPosition(area.x, area.y) && !grid.getAreaNeighborsWithDiagonal(area.x, area.y, area.width, area.height).some(neighbor => {
                     return !!fleet.getShipAtPosition(neighbor.getX(), neighbor.getY());
                 });
             });
@@ -54,7 +54,9 @@ class Fleet {
 
             // choose some random area and place the ship
             var position = _.shuffle(possibleAreas).pop();
-            fleet.addShip(new Ship(grid.getAreaFields(position.x, position.y, position.width, position.height)));
+            var ship = new Ship(grid.getAreaFields(position.x, position.y, position.width, position.height));
+
+            fleet.addShip(ship);
         });
 
         return fleet;
